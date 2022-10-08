@@ -21,7 +21,7 @@
             display: flex;
             justify-content: center;
             padding: 5px 20px;
-            background-color: aqua;
+            background-color: #a6dbf4;
         }
 
         .app {
@@ -29,7 +29,7 @@
             display: flex;
             justify-content: space-evenly;
             height:fit-content;
-            background: rgb(173,250,243);
+            background: image();
             background: linear-gradient(126deg, rgba(173,250,243,1) 8%, rgba(17,238,150,1) 87%);
         }
 
@@ -107,11 +107,11 @@
 </head>
 <body>
     <nav>
-        <img src="./assets/Logo.png" alt="">
+        <img src="./assets/images/Logo.png" alt="">
     </nav>
     <div id="app" class="app">
         <div class="img-container">
-            <img src="./assets/main.jpeg" alt="">
+            <img src=".\assets\images\main.png" alt="">
         </div>
         <div class="form" @submit.prevent="HandleSubmit">
             <p class="label">Iniciar sesion</p>
