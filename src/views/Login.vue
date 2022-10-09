@@ -1,0 +1,176 @@
+<template>
+    <nav>
+        <a href="index.html">
+            <img src="../assets/logo.png" alt="">
+        </a>
+    </nav>
+    <div id="app" class="app">
+        <div class="img-container">
+            <img src="../assets/main.png" alt="">
+        </div>
+        <div class="form" @submit.prevent="HandleSubmit">
+            <p class="label">Iniciar sesion</p>
+            <div class="input-container">
+                <custom-input
+                v-for="(input, i) in inputs"
+                :key="i"
+                v-model="input.value"
+                :type="input.type"
+                :label="input.label"/>
+            </div>
+            <p class="space"><a href="#">¿Olvidaste tu contraseña?</a></p>
+            <button class="login-button">Ingresar</button>
+            <p><a href="SignIn.vue">Registrate aca!!</a></p>
+        </div>
+    </div>
+    
+</template>
+<script>
+import {createApp} from 'vue';
+const app= createApp(app);
+        createApp({
+            components:['custom-input'],
+            data: function(){
+                return {
+                    inputs:[
+                    {
+                        label:'E-mail',
+                        value:'',
+                        type:'email'
+                    },
+                    {
+                        label:'Contraseña',
+                        value:'',
+                        type:'password'
+                    }
+                ]
+                }
+            },
+            methods: {
+                HandleSubmit(){
+                    // Retorna el valor de cada campo relleno del formulario
+                    console.log(this.inputs[0].value, this.inputs[1].value)
+                }
+            }
+        })
+        app.component('custom-input',{
+            template:`
+                <label>
+                    {{label}}
+                    <input :type="type" v-model="inputValue" required>
+                </label>
+            `,
+            props:['label', 'type', 'modelValue'],
+            computed: {
+                inputValue: {
+                    get(){
+                        return this.modelValue
+                    },
+                    set(value){
+                        this.$emit('update:modelValue',value)
+                    }
+                }
+            }
+        })
+        app.mount('#app')
+    </script>
+
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+        }
+
+        nav {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 5px 20px;
+            background-color: aqua;
+        }
+
+        .app {
+            width: 100%;
+            display: flex;
+            justify-content: space-evenly;
+            height:fit-content;
+            background: rgb(173,250,243);
+            background: linear-gradient(126deg, rgba(173,250,243,1) 8%, rgba(17,238,150,1) 87%);
+        }
+
+        .img-container{
+            width: 50%;
+            height: 50%;
+            display: grid;
+            place-self: center;
+        }
+
+        .img-container img{
+            width: 75%;
+            margin: auto auto;
+        }
+
+        .form {
+            height: 87.7vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .input-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input {
+            height: 50px;
+            width: 100%;
+            background-color: rgb(182, 180, 192);
+            border: 3px solid rgb(124, 122, 130);
+            border-radius: 10px;
+        }
+
+        label, .label {
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: large;
+            font-weight: bold;
+            letter-spacing: 3px;
+            margin-bottom: 5px;
+        } 
+        
+        p a {
+            text-decoration: none;
+            color: blue;
+        }
+
+        .login-button {
+            border: 2px solid blue;
+            border-radius: 10px;
+            color: blue;
+            background-color: yellow;
+            min-width: fit-content;
+            padding: 5px 50px;
+        }
+
+        .space {
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 420px) {
+            .form-container {
+                height: fit-content;
+                padding-top: 10px;
+            }
+            .label-container {
+                grid-template-columns: 1fr;
+                margin-top: 20px;
+            }
+        }
+    </style>

@@ -1,0 +1,209 @@
+<template>
+    <div>
+    <nav>
+        <a href="Home.vue">
+            <img src="C:\Users\Nicolas Mandujano\Desktop\a\crudvue\src\assets\logo.png" alt="">
+        </a>
+    </nav>
+    <div id="app" class="form-container">
+        <form class="form" @submit.prevent="HandleSubmit">
+            <div class="input-container">
+                <custom-input
+                v-for="(input, i) in inputs"
+                :key="i"
+                v-model="input.value"
+                :type="input.type"
+                :label="input.label"/>
+            </div>
+            <button @change="ValidatedEmail(); ValidatedPassword()" style="border-radius: 30px;
+            ">
+                <img src="C:\Users\Nicolas Mandujano\Desktop\a\crudvue\src\assets\Send.png" alt="Enviar informacion" class="button-img">
+            </button>
+        </form>
+        <div class="img-container">
+            <img src="C:\Users\Nicolas Mandujano\Desktop\a\crudvue\src\assets\niña.png" alt="">
+            <img src="C:\Users\Nicolas Mandujano\Desktop\a\crudvue\src\assets\niño.png" alt="">
+        </div>
+    </div>
+</div>
+</template>
+<script >
+import {createApp} from 'vue';
+const app = createApp(app)    
+createApp({
+            components:['custom-input'],
+            data: function(){
+                return {
+                    inputs:[
+                        {
+                        label:'Nombre',
+                        value:'',
+                        type:'text'
+                    },
+                    {
+                        label:'Apellido',
+                        value:'',
+                        type:'text'
+                    },
+                    {
+                        label:'E-mail',
+                        value:'',
+                        type:'email'
+                    },
+                    {
+                        label:'Repita el e-mail',
+                        value:'',
+                        type:'email',
+                        valid:false
+                    },
+                    {
+                        label:'Contraseña',
+                        value:'',
+                        type:'password'
+                    },
+                    {
+                        label:'Repita la contraseña',
+                        value:'',
+                        type:'password',
+                        valid: false
+                    },
+                ]
+                }
+            },
+            methods: {
+                HandleSubmit(){
+                    // Retorna el valor de cada campo relleno del formulario
+                    console.log(this.inputs[0].value, this.inputs[1].value, this.inputs[2].value, this.inputs[3].valid, this.inputs[4].value, this.inputs[5].valid)
+                },
+                ValidatedEmail(){
+                    // Valida si ambos emails son iguales
+                    if (this.inputs[2].value === this.inputs[3].value) {
+                       return this.inputs[3].valid = true
+                    }
+                    return this.inputs[3].valid = false
+                },
+                ValidatedPassword(){
+                    // Valida si ambas contraseñas son iguales
+                    if (this.inputs[4].value === this.inputs[5].value) {
+                       return this.inputs[5].valid = true
+                    }
+                    return this.inputs[5].valid = false
+                }
+            }
+        })
+        app.component('custom-input',{
+            template:`
+                <label>
+                    {{label}}
+                    <input :type="type" v-model="inputValue" required>
+                </label>
+            `,
+            props:['label', 'type', 'modelValue'],
+            computed: {
+                inputValue: {
+                    get(){
+                        return this.modelValue
+                    },
+                    set(value){
+                        this.$emit('update:modelValue',value)
+                    }
+                }
+            }
+        })
+        app.mount('#app')
+    </script>
+
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: rgb(173,250,243);
+            background: linear-gradient(126deg, rgba(173,250,243,1) 8%, rgba(17,238,150,1) 87%);
+        }
+
+        nav {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 5px 20px;
+            background-color: aqua;
+        }
+
+        .form-container {
+            height: fit-content;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: auto;
+        }
+        .form {
+            min-width: 75%;
+            min-height: 75%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(186, 90, 45);
+            border-radius: 25px;
+            padding: 10px 0;
+            margin: 20px 0;
+        }
+        .input-container {
+            display: grid;
+            width: 75%;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+
+        input {
+            height: 50px;
+            width: 100%;
+            background-color: rgb(182, 180, 192);
+            border: 3px solid rgb(124, 122, 130);
+            border-radius: 10px;
+        }
+
+        label {
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: large;
+            font-weight: bold;
+            letter-spacing: 3px;
+            margin-bottom: 5px;
+        }
+
+        .button-img {
+            width: 50px;
+            height: 45px;
+        }
+
+        .img-container {
+            width: 55%;
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 0;
+        }
+
+        .img-container img {
+            width: 90px;
+            height: 90px;
+        }
+
+        @media (max-width: 420px) {
+            .form-container {
+                height: fit-content;
+                padding-top: 10px;
+            }
+            .label-container {
+                grid-template-columns: 1fr;
+                margin-top: 20px;
+            }
+        }
+    </style>
