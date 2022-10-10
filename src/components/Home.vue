@@ -1,6 +1,6 @@
 <template>
-  <div class="home-view">
-  <nav>
+  <div class="homeView">
+    <nav>
       <a href="Login.vue">Iniciar sesion</a>
     </nav>
     <div class="container">
@@ -46,7 +46,7 @@ export default{
 
   name: "HomeView"
 }
-app.mount('#app')
+
 </script>
 
 
@@ -60,8 +60,8 @@ app.mount('#app')
         body {
             height: 100vh;
             background: rgb(173,250,243);
-            background: linear-gradient(126deg, rgba(173,250,243,1) 8%, rgba(17,238,150,1) 87%);
-        }
+           background: linear-gradient(126deg, rgba(173,250,243,1) 8%, rgba(17,238,150,1) 87%);
+         }
 
         nav {
             width: 100%;

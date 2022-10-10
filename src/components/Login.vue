@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="Login">
     <nav>
         <a href="index.html">
             <img src="../assets/logo.png" alt="">
@@ -28,6 +28,7 @@
 </template>
 <script>
 import {createApp} from 'vue';
+
 const app= createApp(app);
         createApp({
             components:['custom-input'],
